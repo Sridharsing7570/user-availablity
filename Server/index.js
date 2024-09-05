@@ -3,19 +3,15 @@ require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-// const session = require("express-session");
+const session = require("express-session");
 
 const connectDB = require("./config/db");
-const session = require("express-session");
 const app = express();
 
 // Connecting to mongoDb
 connectDB();
 
-// Middle to parse JSON data
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors());
+// Session middleware setup
 app.use(
   session({
     secret: process.env.JWT_SECRET,
@@ -24,6 +20,11 @@ app.use(
     cookie: { secure: false },
   })
 );
+
+// Middle to parse JSON data
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
 
 const PORT = process.env.PORT;
 

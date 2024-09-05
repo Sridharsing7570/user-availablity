@@ -3,6 +3,8 @@ const Availability = require("../models/availabiltyModel");
 // Create or update availabilty
 exports.setAvailibilty = async (req, res) => {
   const { start, end, duration, scheduleSlots } = req.body;
+  console.log(req);
+  console.log("body:", req.body);
   const userId = req.session.userId; // Get the user ID from session
 
   if (!userId) {
